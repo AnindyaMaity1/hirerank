@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HireRank Match</title>
+  <link rel="icon" href="{{ url_for('static', filename='Logo.png') }}" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- LEFT PANEL -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <h1>HireRank</h1>
+        <p class="tagline">Multi-Criteria AI Scoring</p>
+      </div>
+
+      <ul class="features">
+        <li>📄 Multi-Format Resume Parsing</li>
+        <li>🎯 8-Point JD Matching Algorithm</li>
+        <li>📈 ATS Compatibility Score</li>
+        <li>⭐ Skill Gap Analysis</li>
+        <li>📊 Experience Weighting</li>
+        <li>🎓 Education Relevance</li>
+        <li>💼 Career Trajectory Score</li>
+        <li>⚡ Real-Time Processing</li>
+      </ul>
+
+      <div class="badge pro">ENTERPRISE HR TOOL</div>
+      <div class="metrics">
+        <span>✅ 98% Parsing Accuracy</span>
+        <span>⚡ &lt;1min Processing</span>
+        <!-- free tier usage meter, now 10 -->
+        <span id="usageInfo">🎁 Free: 0 / 10 resumes analyzed</span>
+      </div>
+
+      <!-- Upgrade CTA for when limit is hit -->
+      <div class="badge" id="upgradeHint" style="display:none; margin-top:12px;">
+        Upgrade to continue unlimited analysis
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL -->
+    <main class="content">
+      <div class="content-inner">
+        <header class="dashboard-header">
+          <h2>Advanced Resume Screening</h2>
+          <div class="status-indicator" id="statusIdle">
+            Ready to analyze
+          </div>
+        </header>
+
+        <!-- Free tier notice -->
+        <section class="free-tier-banner" id="freeTierBanner">
+          <p>
+            You can analyze up to <strong>10 resumes for free</strong>. After that, upgrade to continue using HireRank Match.
+          </p>
+        </section>
+
+        <form id="rankingForm" class="upload-form">
+          <div class="form-group">
+            <label for="jobDesc">Job Description <span class="required">*</span></label>
+            <textarea 
+              id="jobDesc" 
+              placeholder="Paste complete job description including requirements, skills, experience level..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="resumeInput">Upload Resumes (PDF/DOCX/TXT) <span class="required">*</span></label>
+            <div class="file-drop-zone" id="dropZone">
+              <input type="file" id="resumeInput" multiple accept=".pdf,.docx,.txt" required />
+              <div class="drop-hint">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                </svg>
+                Drag &amp; drop or click to upload (Max 10 files, 5MB each)
+              </div>
+              <div id="fileList" class="file-list"></div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="rankBtn" class="btn-primary">
+              Analyze Resumes with AI
+            </button>
+            <button type="reset" class="btn-secondary">Reset All</button>
+          </div>
+        </form>
+
+        <!-- Paywall / upgrade section (shown after free limit exceeded) -->
+        <section class="paywall-panel" id="paywallPanel" style="display:none; margin-top:20px;">
+          <h3>Free limit reached</h3>
+          <p>
+            You have used your free quota of 10 analyzed resumes. Upgrade to continue ranking candidates with HireRank Match.
+          </p>
+          <ul>
+            <li>Unlimited resume analyses</li>
+            <li>Priority processing and support</li>
+            <li>Team collaboration features (coming soon)</li>
+          </ul>
+          <button type="button" id="upgradeBtn" class="btn-primary">
+            Upgrade &amp; Continue
+          </button>
+        </section>
+
+        <!-- Results: cards will be injected here one per row -->
+        <div id="results" class="results-container"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
